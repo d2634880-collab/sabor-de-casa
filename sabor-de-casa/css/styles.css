@@ -486,12 +486,12 @@ footer{
     height:320px;
     padding:24px 20px;
     border-radius:0;
-    background-position:82% center;
+    background-position:95% center;
     align-items:flex-start;
   }
 
   .hero-content{
-    max-width:175px;
+    max-width:145px;
     padding-top:20px;
   }
 
@@ -501,12 +501,13 @@ footer{
     color:#2d241d;
     text-shadow:none;
     margin-bottom:12px;
+    letter-spacing:-1px;
   }
 
   .hero-content p{
-    max-width:155px;
-    font-size:14px;
-    line-height:1.35;
+    max-width:145px;
+    font-size:15px;
+    line-height:1.4;
     color:#5d5148;
     text-shadow:none;
     margin-bottom:18px;
