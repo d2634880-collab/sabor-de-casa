@@ -197,7 +197,7 @@ function addToCart(productId){
 
   updateCart();
   updateProductCard(productId);
-  showToast("✅ Producto agregado");
+ //  showToast("✅ Producto agregado");
 }
 
 function increaseQuantity(productId){
