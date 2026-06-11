@@ -486,18 +486,18 @@ footer{
     height:320px;
     padding:24px 20px;
     border-radius:0;
-    background-position:100% center;
+    background-position:112% center;
     align-items:flex-start;
   }
 
   .hero-content{
-    max-width:185px;
-    padding-top:28px;
+    max-width:175px;
+    padding-top:34px;
   }
 
   .hero-content h1{
-    font-size:36px;
-    line-height:1.05;
+    font-size:33px;
+    line-height:1.06;
     color:#2d241d;
     text-shadow:none;
     margin-bottom:12px;
