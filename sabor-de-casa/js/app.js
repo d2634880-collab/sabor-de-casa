@@ -237,6 +237,7 @@ function openCart(){
   cartModal.style.display = "block";
   cartOverlay.style.display = "block";
   mobileCartBar.style.setProperty("display", "none", "important");
+  renderCart();
 }
 
 function closeCartModal(){
