@@ -10,16 +10,14 @@
 
 <header class="navbar">
 
-  <button class="menu-btn" id="menu-btn">
-    ☰
-  </button>
+  <button class="menu-btn" id="menu-btn">☰</button>
 
   <div class="logo">
     <img src="./images/logo.png" alt="Sabor de Casa">
   </div>
 
-  <button class="cart-btn" id="cart-btn">
-    <span class="cart-icon">🛒</span>
+  <button class="cart-btn" id="cart-btn" aria-label="Ver pedido">
+    <span class="cart-bag"></span>
     <span class="cart-count">0</span>
   </button>
 
@@ -32,22 +30,11 @@
 </header>
 
 <section class="hero-banner">
-
   <div class="hero-content">
-    <h1>
-      Hecho con cariño,<br>
-      para ti 🤎
-    </h1>
-
-    <p>
-      Empanadas, cuñapé, masaco y café.
-    </p>
-
-    <a href="#products" class="hero-btn">
-      Ver menú
-    </a>
+    <h1>Hecho con cariño,<br>para ti 🤎</h1>
+    <p>Empanadas, cuñapé, masaco y café.</p>
+    <a href="#products" class="hero-btn">Ver menú</a>
   </div>
-
 </section>
 
 <section class="section-title">
@@ -62,20 +49,14 @@
 
   <div class="cart-header">
     <h2>Mi Pedido</h2>
-
-    <button id="close-cart">
-      ✕
-    </button>
+    <button id="close-cart">✕</button>
   </div>
 
   <div id="cart-items"></div>
 
-  <h3 id="cart-total">
-    Total productos: Bs 0
-  </h3>
+  <h3 id="cart-total">Total productos: Bs 0</h3>
 
   <div class="delivery-note">
-
     <div class="info-card">
       <span>🚚</span>
       <p>Entrega rápida</p>
@@ -90,16 +71,10 @@
       <span>💬</span>
       <p>Confirmación por WhatsApp</p>
     </div>
-
   </div>
 
-  <button id="clear-cart">
-    Vaciar carrito
-  </button>
-
-  <button id="whatsapp-btn">
-    Enviar pedido por WhatsApp
-  </button>
+  <button id="clear-cart">Vaciar carrito</button>
+  <button id="whatsapp-btn">Enviar pedido por WhatsApp</button>
 
 </div>
 
