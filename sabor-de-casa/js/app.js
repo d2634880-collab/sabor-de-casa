@@ -72,10 +72,12 @@ function renderCart(){
 
     cartItems.innerHTML += `
       <div class="cart-item">
-        <div>
+        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+
+        <div class="cart-item-info">
           <strong>${item.name}</strong>
           <p>${item.quantity} x Bs ${item.price}</p>
-          <strong>Bs ${item.price * item.quantity}</strong>
+          <b>Bs ${item.price * item.quantity}</b>
         </div>
 
         <div class="cart-actions">
