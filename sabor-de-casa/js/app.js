@@ -56,24 +56,7 @@ function renderProducts(){
   });
 }
 
-function addToCart(productId){
-  const product = products.find(item => item.id === productId);
-  const existingProduct = cart.find(item => item.id === productId);
-
-  if(existingProduct){
-    existingProduct.quantity++;
-  }else{
-    cart.push({
-      ...product,
-      quantity:1
-    });
-  }
-
-  showToast("✅ Producto agregado");
-  updateCart();
-}
-
-function updateCart(){
+function renderCart(){
   let totalItems = 0;
   let totalPrice = 0;
 
@@ -104,6 +87,17 @@ function updateCart(){
     `;
   });
 
+  return {
+    totalItems,
+    totalPrice
+  };
+}
+
+function updateCart(){
+  const totals = renderCart();
+  const totalItems = totals.totalItems;
+  const totalPrice = totals.totalPrice;
+
   const cartCount = cartButton.querySelector(".cart-count");
 
   if(cartCount){
@@ -114,14 +108,36 @@ function updateCart(){
   mobileCartBar.textContent = `🛒 Ver pedido (${totalItems}) • Bs ${totalPrice}`;
 
   if(totalItems === 0 || cartModal.style.display === "block" || !isMobile()){
-    mobileCartBar.style.display = "none";
+    mobileCartBar.style.setProperty("display", "none", "important");
   }else{
-    mobileCartBar.style.display = "flex";
+    mobileCartBar.style.setProperty("display", "flex", "important");
   }
 
   whatsappBtn.disabled = cart.length === 0;
+}
 
-  renderProducts();
+function refreshProductsSmooth(){
+  requestAnimationFrame(() => {
+    renderProducts();
+  });
+}
+
+function addToCart(productId){
+  const product = products.find(item => item.id === productId);
+  const existingProduct = cart.find(item => item.id === productId);
+
+  if(existingProduct){
+    existingProduct.quantity++;
+  }else{
+    cart.push({
+      ...product,
+      quantity:1
+    });
+  }
+
+  updateCart();
+  refreshProductsSmooth();
+  showToast("✅ Producto agregado");
 }
 
 function increaseQuantity(productId){
@@ -132,6 +148,7 @@ function increaseQuantity(productId){
   }
 
   updateCart();
+  refreshProductsSmooth();
 }
 
 function decreaseQuantity(productId){
@@ -146,17 +163,20 @@ function decreaseQuantity(productId){
   }
 
   updateCart();
+  refreshProductsSmooth();
 }
 
 function removeItem(productId){
   cart = cart.filter(product => product.id !== productId);
+
   updateCart();
+  refreshProductsSmooth();
 }
 
 function openCart(){
   cartModal.style.display = "block";
   cartOverlay.style.display = "block";
-  mobileCartBar.style.display = "none";
+  mobileCartBar.style.setProperty("display", "none", "important");
 }
 
 function closeCartModal(){
@@ -171,7 +191,7 @@ function showToast(message){
 
   setTimeout(() => {
     toast.style.display = "none";
-  }, 2500);
+  }, 2200);
 }
 
 cartButton.addEventListener("click", openCart);
@@ -182,6 +202,7 @@ cartOverlay.addEventListener("click", closeCartModal);
 clearCart.addEventListener("click", () => {
   cart = [];
   updateCart();
+  refreshProductsSmooth();
   showToast("🗑 Carrito vacío");
 });
 
@@ -227,8 +248,10 @@ whatsappBtn.addEventListener("click", () => {
 
   cart = [];
   updateCart();
+  refreshProductsSmooth();
   closeCartModal();
   showToast("✅ Gracias por tu pedido");
 });
 
+renderProducts();
 updateCart();
