@@ -9,48 +9,34 @@
 <body>
 
 <header class="navbar">
+  <button class="menu-btn" id="menu-btn">☰</button>
 
   <div class="logo">
     <img src="./images/logo.png" alt="Sabor de Casa">
   </div>
 
-  <button class="menu-btn" id="menu-btn">☰</button>
+  <button class="cart-btn" id="cart-btn">
+    <span class="cart-icon">🛒</span>
+    <span class="cart-count">0</span>
+  </button>
 
   <nav id="nav-menu">
     <a href="#">Inicio</a>
     <a href="#products">Menú</a>
-    <a href="#">Nosotros</a>
-    <a href="#">Contacto</a>
+    <a href="#footer">Contacto</a>
   </nav>
-
-  <button class="cart-btn" id="cart-btn">
-    Mi Pedido (0)
-  </button>
-
 </header>
 
 <section class="hero-banner">
-
   <div class="hero-content">
-
-    <h1>
-      Hecho con cariño para ti ❤️
-    </h1>
-
-    <p>
-      Empanadas, cuñapé, masaco y café.
-    </p>
-
-    <a href="#products" class="hero-btn">
-      Ver menú
-    </a>
-
+    <h1>Hecho con cariño,<br>para ti 🤎</h1>
+    <p>Empanadas, cuñapé, masaco y café.</p>
+    <a href="#products" class="hero-btn">Ver menú</a>
   </div>
-
 </section>
 
 <section class="section-title">
-  <h2>Nuestros Productos</h2>
+  <h2>Nuestros productos</h2>
 </section>
 
 <section id="products"></section>
@@ -58,7 +44,6 @@
 <div class="cart-overlay" id="cart-overlay"></div>
 
 <div id="cart-modal" class="cart-modal">
-
   <div class="cart-header">
     <h2>Mi Pedido</h2>
     <button id="close-cart">✕</button>
@@ -66,12 +51,9 @@
 
   <div id="cart-items"></div>
 
-  <h3 id="cart-total">
-    Total productos: Bs 0
-  </h3>
+  <h3 id="cart-total">Total productos: Bs 0</h3>
 
   <div class="delivery-note">
-
     <div class="info-card">
       <span>🚚</span>
       <p>Entrega rápida</p>
@@ -86,24 +68,21 @@
       <span>💬</span>
       <p>Confirmación por WhatsApp</p>
     </div>
-
   </div>
 
-  <button id="clear-cart">
-    Vaciar carrito
-  </button>
-
-  <button id="whatsapp-btn">
-    Enviar pedido por WhatsApp
-  </button>
-
+  <button id="clear-cart">Vaciar carrito</button>
+  <button id="whatsapp-btn">Enviar pedido por WhatsApp</button>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<footer>
-  <p>Sabor de Casa © 2026</p>
-  <p>Empanadas • Cuñapé • Masaco • Café</p>
+<footer id="footer">
+  <div class="footer-content">
+    <h3>Sabor de Casa</h3>
+    <p>Empanadas • Cuñapé • Masaco • Café</p>
+    <p>Pedidos por WhatsApp</p>
+    <small>© 2026 Sabor de Casa. Todos los derechos reservados.</small>
+  </div>
 </footer>
 
 <script src="./js/products.js"></script>
@@ -111,4 +90,3 @@
 
 </body>
 </html>
-
