@@ -166,13 +166,6 @@ cart.forEach(item => {
 if(cartModal.style.display === "block"){
   renderCart();
 }
-
-  const cartCount = cartButton.querySelector(".cart-count");
-
-  if(cartCount){
-    cartCount.textContent = totalItems;
-  }
-
   cartTotal.textContent = `Total productos: Bs ${totalPrice}`;
   mobileCartBar.textContent = `🛒 Ver pedido (${totalItems}) • Bs ${totalPrice}`;
 
