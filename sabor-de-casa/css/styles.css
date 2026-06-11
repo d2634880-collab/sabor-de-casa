@@ -74,12 +74,15 @@ nav a{
   font-size:64px;
   line-height:1.1;
   margin-bottom:20px;
+  color:white;
+  text-shadow:0 4px 15px rgba(0,0,0,.55);
 }
 
 .hero-content p{
   font-size:24px;
-  color:#6d6258;
+  color:white;
   margin-bottom:25px;
+  text-shadow:0 3px 10px rgba(0,0,0,.5);
 }
 
 .hero-btn{
