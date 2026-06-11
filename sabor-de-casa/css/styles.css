@@ -12,6 +12,7 @@ body{
   font-family:Arial, sans-serif;
   background:#f8f5ef;
   color:#2d241d;
+  padding-bottom:0;
 }
 
 /* NAVBAR */
@@ -24,10 +25,13 @@ body{
   grid-template-columns:70px 1fr 70px;
   align-items:center;
   position:relative;
+  background:#f8f5ef;
 }
 
 .logo{
-  text-align:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .logo img{
@@ -51,14 +55,35 @@ body{
   height:56px;
   border:none;
   border-radius:18px;
-  background:#f2ece4;
+  background:#f8f3ec;
   color:#2d241d;
   position:relative;
   cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.04);
 }
 
-.cart-icon{
-  font-size:24px;
+.cart-bag{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:22px;
+  height:22px;
+  transform:translate(-50%,-40%);
+  border:2.5px solid #2d241d;
+  border-radius:5px 5px 7px 7px;
+}
+
+.cart-bag::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:-10px;
+  width:12px;
+  height:10px;
+  transform:translateX(-50%);
+  border:2.5px solid #2d241d;
+  border-bottom:none;
+  border-radius:10px 10px 0 0;
 }
 
 .cart-count{
@@ -98,8 +123,8 @@ nav a{
   height:500px;
   margin:auto;
   background-image:linear-gradient(
-    rgba(255,255,255,.10),
-    rgba(0,0,0,.10)
+    rgba(255,255,255,.12),
+    rgba(0,0,0,.08)
   ), url("../images/hero-banner.png");
   background-size:cover;
   background-position:center;
@@ -167,6 +192,7 @@ nav a{
   padding:20px;
   box-shadow:0 10px 25px rgba(0,0,0,.08);
   position:relative;
+  transition:none !important;
 }
 
 .product-image{
@@ -175,6 +201,7 @@ nav a{
   object-fit:cover;
   border-radius:15px;
   margin-bottom:15px;
+  backface-visibility:hidden;
 }
 
 .product-card h3{
@@ -196,6 +223,7 @@ button{
   color:white;
   font-weight:bold;
   cursor:pointer;
+  backface-visibility:hidden;
 }
 
 .product-counter{
@@ -230,6 +258,7 @@ button{
   align-items:center;
   justify-content:center;
   font-weight:bold;
+  backface-visibility:hidden;
 }
 
 /* CARRITO */
@@ -377,24 +406,26 @@ button{
 /* FOOTER */
 
 footer{
-  margin-top:20px;
+  margin-top:10px;
   background:#f2ece4;
-  padding:28px 20px 35px;
+  padding:24px 20px 28px;
   text-align:center;
 }
 
 .footer-content h3{
-  font-size:26px;
-  margin-bottom:8px;
+  font-size:24px;
+  margin-bottom:6px;
 }
 
 .footer-content p{
   color:#6d6258;
-  margin-bottom:8px;
+  font-size:15px;
+  margin-bottom:6px;
 }
 
 .footer-content small{
   color:#8a7c70;
+  font-size:13px;
 }
 
 /* MOBILE PRO */
@@ -402,7 +433,11 @@ footer{
 @media(max-width:768px){
 
   body{
-    padding-bottom:80px;
+    padding-bottom:0;
+  }
+
+  body:has(.mobile-cart-bar[style*="flex"]){
+    padding-bottom:78px;
   }
 
   .navbar{
@@ -428,8 +463,9 @@ footer{
     border-radius:16px;
   }
 
-  .cart-icon{
-    font-size:22px;
+  .cart-bag{
+    width:21px;
+    height:21px;
   }
 
   nav{
@@ -447,33 +483,40 @@ footer{
   }
 
   .hero-banner{
-    height:340px;
-    padding:24px;
+    height:320px;
+    padding:24px 20px;
     border-radius:0;
-    background-position:75% center;
+    background-position:82% center;
+    align-items:flex-start;
   }
 
   .hero-content{
-    max-width:220px;
+    max-width:175px;
+    padding-top:20px;
   }
 
   .hero-content h1{
-    font-size:34px;
-    line-height:1.15;
+    font-size:29px;
+    line-height:1.12;
     color:#2d241d;
     text-shadow:none;
+    margin-bottom:12px;
   }
 
   .hero-content p{
-    font-size:16px;
+    max-width:155px;
+    font-size:14px;
+    line-height:1.35;
     color:#5d5148;
     text-shadow:none;
+    margin-bottom:18px;
   }
 
   .hero-btn{
-    padding:14px 28px;
+    padding:13px 24px;
     border-radius:10px;
     background:#17120f;
+    font-size:15px;
   }
 
   .section-title{
@@ -493,10 +536,10 @@ footer{
 
   .product-card{
     display:grid;
-    grid-template-columns:95px 1fr 46px;
+    grid-template-columns:110px 1fr 46px;
     align-items:center;
     gap:14px;
-    padding:14px 0;
+    padding:16px 0;
     background:transparent;
     box-shadow:none;
     border-radius:0;
@@ -504,8 +547,8 @@ footer{
   }
 
   .product-image{
-    width:95px;
-    height:78px;
+    width:110px;
+    height:86px;
     border-radius:14px;
     margin:0;
   }
@@ -554,7 +597,7 @@ footer{
 
   .added-badge{
     top:8px;
-    left:72px;
+    left:84px;
     right:auto;
     width:26px;
     height:26px;
@@ -605,75 +648,7 @@ footer{
   }
 
   footer{
-    margin-top:20px;
-    padding:25px 20px 35px;
-  }
-}
-
-/* CARRITO TIPO BOLSITA - MAQUETA */
-
-.cart-btn{
-  justify-self:end;
-  width:56px;
-  height:56px;
-  border:none;
-  border-radius:18px;
-  background:#f8f3ec;
-  color:#2d241d;
-  position:relative;
-  cursor:pointer;
-  box-shadow:0 8px 20px rgba(0,0,0,.04);
-}
-
-.cart-bag{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:22px;
-  height:22px;
-  transform:translate(-50%,-40%);
-  border:2.5px solid #2d241d;
-  border-radius:5px 5px 7px 7px;
-}
-
-.cart-bag::before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:-10px;
-  width:12px;
-  height:10px;
-  transform:translateX(-50%);
-  border:2.5px solid #2d241d;
-  border-bottom:none;
-  border-radius:10px 10px 0 0;
-}
-
-.cart-count{
-  position:absolute;
-  top:-7px;
-  right:-7px;
-  width:24px;
-  height:24px;
-  border-radius:50%;
-  background:#8b5a3c;
-  color:white;
-  font-size:13px;
-  font-weight:bold;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-@media(max-width:768px){
-  .cart-btn{
-    width:50px;
-    height:50px;
-    border-radius:16px;
-  }
-
-  .cart-bag{
-    width:21px;
-    height:21px;
+    margin-top:8px;
+    padding:24px 18px 30px;
   }
 }
