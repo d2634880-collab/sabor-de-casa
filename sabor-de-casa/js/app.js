@@ -22,38 +22,62 @@ function isMobile(){
   return window.innerWidth <= 768;
 }
 
-function renderProducts(){
-  productsContainer.innerHTML = "";
+function getQuantity(productId){
+  const item = cart.find(product => product.id === productId);
+  return item ? item.quantity : 0;
+}
 
-  products.forEach(product => {
-    const cartItem = cart.find(item => item.id === product.id);
-    const quantity = cartItem ? cartItem.quantity : 0;
+function createProductHTML(product){
+  const quantity = getQuantity(product.id);
 
-    productsContainer.innerHTML += `
-      <div class="product-card">
-        ${quantity > 0 ? `<div class="added-badge">${quantity}</div>` : ""}
+  return `
+    <div class="product-card" data-product-id="${product.id}">
+      ${quantity > 0 ? `<div class="added-badge">${quantity}</div>` : ""}
 
-        <img src="${product.image}" alt="${product.name}" class="product-image">
+      <img src="${product.image}" alt="${product.name}" class="product-image">
 
-        <div class="product-info">
-          <h3>${product.name}</h3>
-          <p class="price">Bs ${product.price}</p>
-        </div>
-
-        ${
-          quantity === 0
-          ? `<button onclick="addToCart(${product.id})">Agregar</button>`
-          : `
-            <div class="product-counter">
-              <button onclick="decreaseQuantity(${product.id})">-</button>
-              <span>${quantity} agregado(s)</span>
-              <button onclick="increaseQuantity(${product.id})">+</button>
-            </div>
-          `
-        }
+      <div class="product-info">
+        <h3>${product.name}</h3>
+        <p class="price">Bs ${product.price}</p>
       </div>
-    `;
-  });
+
+      ${
+        quantity === 0
+        ? `<button onclick="addToCart(${product.id})">Agregar</button>`
+        : `
+          <div class="product-counter">
+            <button onclick="decreaseQuantity(${product.id})">-</button>
+            <span>${quantity} agregado(s)</span>
+            <button onclick="increaseQuantity(${product.id})">+</button>
+          </div>
+        `
+      }
+    </div>
+  `;
+}
+
+function renderProducts(){
+  productsContainer.innerHTML = products
+    .map(product => createProductHTML(product))
+    .join("");
+}
+
+function updateProductCard(productId){
+  const product = products.find(item => item.id === productId);
+  const oldCard = productsContainer.querySelector(
+    `.product-card[data-product-id="${productId}"]`
+  );
+
+  if(!product || !oldCard){
+    return;
+  }
+
+  const temp = document.createElement("div");
+  temp.innerHTML = createProductHTML(product).trim();
+
+  const newCard = temp.firstElementChild;
+
+  oldCard.replaceWith(newCard);
 }
 
 function renderCart(){
@@ -118,15 +142,13 @@ function updateCart(){
   whatsappBtn.disabled = cart.length === 0;
 }
 
-function refreshProductsSmooth(){
-  requestAnimationFrame(() => {
-    renderProducts();
-  });
-}
-
 function addToCart(productId){
   const product = products.find(item => item.id === productId);
   const existingProduct = cart.find(item => item.id === productId);
+
+  if(!product){
+    return;
+  }
 
   if(existingProduct){
     existingProduct.quantity++;
@@ -138,7 +160,7 @@ function addToCart(productId){
   }
 
   updateCart();
-  refreshProductsSmooth();
+  updateProductCard(productId);
   showToast("✅ Producto agregado");
 }
 
@@ -150,7 +172,7 @@ function increaseQuantity(productId){
   }
 
   updateCart();
-  refreshProductsSmooth();
+  updateProductCard(productId);
 }
 
 function decreaseQuantity(productId){
@@ -165,14 +187,14 @@ function decreaseQuantity(productId){
   }
 
   updateCart();
-  refreshProductsSmooth();
+  updateProductCard(productId);
 }
 
 function removeItem(productId){
   cart = cart.filter(product => product.id !== productId);
 
   updateCart();
-  refreshProductsSmooth();
+  updateProductCard(productId);
 }
 
 function openCart(){
@@ -202,9 +224,16 @@ closeCart.addEventListener("click", closeCartModal);
 cartOverlay.addEventListener("click", closeCartModal);
 
 clearCart.addEventListener("click", () => {
+  const productIds = cart.map(item => item.id);
+
   cart = [];
+
   updateCart();
-  refreshProductsSmooth();
+
+  productIds.forEach(productId => {
+    updateProductCard(productId);
+  });
+
   showToast("🗑 Carrito vacío");
 });
 
@@ -248,9 +277,16 @@ whatsappBtn.addEventListener("click", () => {
     "_blank"
   );
 
+  const productIds = cart.map(item => item.id);
+
   cart = [];
+
   updateCart();
-  refreshProductsSmooth();
+
+  productIds.forEach(productId => {
+    updateProductCard(productId);
+  });
+
   closeCartModal();
   showToast("✅ Gracias por tu pedido");
 });
