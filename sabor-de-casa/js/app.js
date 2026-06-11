@@ -13,6 +13,11 @@ const navMenu = document.getElementById("nav-menu");
 
 let cart = [];
 
+const mobileCartBar = document.createElement("button");
+mobileCartBar.className = "mobile-cart-bar";
+mobileCartBar.textContent = "🛒 Ver pedido (0) • Bs 0";
+document.body.appendChild(mobileCartBar);
+
 function renderProducts(){
   productsContainer.innerHTML = "";
 
@@ -26,9 +31,10 @@ function renderProducts(){
 
         <img src="${product.image}" alt="${product.name}" class="product-image">
 
-        <h3>${product.name}</h3>
-
-        <p class="price">Bs ${product.price}</p>
+        <div class="product-info">
+          <h3>${product.name}</h3>
+          <p class="price">Bs ${product.price}</p>
+        </div>
 
         ${
           quantity === 0
@@ -96,6 +102,14 @@ function updateCart(){
 
   cartButton.textContent = `Mi Pedido (${totalItems})`;
   cartTotal.textContent = `Total productos: Bs ${totalPrice}`;
+  mobileCartBar.textContent = `🛒 Ver pedido (${totalItems}) • Bs ${totalPrice}`;
+
+  if(totalItems === 0){
+    mobileCartBar.style.display = "none";
+  }else{
+    mobileCartBar.style.display = "flex";
+  }
+
   whatsappBtn.disabled = cart.length === 0;
 
   renderProducts();
@@ -150,6 +164,7 @@ function showToast(message){
 }
 
 cartButton.addEventListener("click", openCart);
+mobileCartBar.addEventListener("click", openCart);
 closeCart.addEventListener("click", closeCartModal);
 cartOverlay.addEventListener("click", closeCartModal);
 
