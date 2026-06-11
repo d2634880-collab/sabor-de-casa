@@ -64,20 +64,55 @@ function renderProducts(){
 
 function updateProductCard(productId){
   const product = products.find(item => item.id === productId);
-  const oldCard = productsContainer.querySelector(
+  const card = productsContainer.querySelector(
     `.product-card[data-product-id="${productId}"]`
   );
 
-  if(!product || !oldCard){
+  if(!product || !card){
     return;
   }
 
-  const temp = document.createElement("div");
-  temp.innerHTML = createProductHTML(product).trim();
+  const quantity = getQuantity(productId);
 
-  const newCard = temp.firstElementChild;
+  const oldBadge = card.querySelector(".added-badge");
 
-  oldCard.replaceWith(newCard);
+  if(quantity > 0){
+    if(oldBadge){
+      oldBadge.textContent = quantity;
+    }else{
+      const badge = document.createElement("div");
+      badge.className = "added-badge";
+      badge.textContent = quantity;
+      card.insertAdjacentElement("afterbegin", badge);
+    }
+  }else{
+    if(oldBadge){
+      oldBadge.remove();
+    }
+  }
+
+  const oldButton = card.querySelector(":scope > button");
+  const oldCounter = card.querySelector(".product-counter");
+
+  if(quantity === 0){
+    if(oldCounter){
+      oldCounter.outerHTML = `<button onclick="addToCart(${product.id})">Agregar</button>`;
+    }
+  }else{
+    const counterHTML = `
+      <div class="product-counter">
+        <button onclick="decreaseQuantity(${product.id})">-</button>
+        <span>${quantity} agregado(s)</span>
+        <button onclick="increaseQuantity(${product.id})">+</button>
+      </div>
+    `;
+
+    if(oldCounter){
+      oldCounter.outerHTML = counterHTML;
+    }else if(oldButton){
+      oldButton.outerHTML = counterHTML;
+    }
+  }
 }
 
 function renderCart(){
