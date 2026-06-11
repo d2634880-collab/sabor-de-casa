@@ -130,22 +130,22 @@ function renderCart(){
     totalPrice += item.price * item.quantity;
 
     cartItems.innerHTML += `
-      <div class="cart-item">
-        <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+  <div class="cart-item" data-cart-id="${item.id}">
+    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
 
-        <div class="cart-item-info">
-          <strong>${item.name}</strong>
-          <p>${item.quantity} x Bs ${item.price}</p>
-          <b>Bs ${item.price * item.quantity}</b>
-        </div>
+    <div class="cart-item-info">
+      <strong>${item.name}</strong>
+      <p>${item.quantity} x Bs ${item.price}</p>
+      <b>Bs ${item.price * item.quantity}</b>
+    </div>
 
-        <div class="cart-actions">
-          <button onclick="decreaseQuantity(${item.id})">-</button>
-          <button onclick="increaseQuantity(${item.id})">+</button>
-          <button onclick="removeItem(${item.id})">🗑</button>
-        </div>
-      </div>
-    `;
+    <div class="cart-actions">
+      <button onclick="decreaseQuantity(${item.id})">-</button>
+      <span>${item.quantity}</span>
+      <button onclick="increaseQuantity(${item.id})">+</button>
+    </div>
+  </div>
+   `;
   });
 
   return {
