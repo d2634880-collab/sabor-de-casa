@@ -18,6 +18,10 @@ mobileCartBar.className = "mobile-cart-bar";
 mobileCartBar.textContent = "🛒 Ver pedido (0) • Bs 0";
 document.body.appendChild(mobileCartBar);
 
+function isMobile(){
+  return window.innerWidth <= 768;
+}
+
 function renderProducts(){
   productsContainer.innerHTML = "";
 
@@ -109,10 +113,10 @@ function updateCart(){
   cartTotal.textContent = `Total productos: Bs ${totalPrice}`;
   mobileCartBar.textContent = `🛒 Ver pedido (${totalItems}) • Bs ${totalPrice}`;
 
-  if(totalItems === 0 || cartModal.style.display === "block"){
-    mobileCartBar.style.setProperty("display", "none", "important");
+  if(totalItems === 0 || cartModal.style.display === "block" || !isMobile()){
+    mobileCartBar.style.display = "none";
   }else{
-    mobileCartBar.style.setProperty("display", "flex", "important");
+    mobileCartBar.style.display = "flex";
   }
 
   whatsappBtn.disabled = cart.length === 0;
@@ -152,7 +156,7 @@ function removeItem(productId){
 function openCart(){
   cartModal.style.display = "block";
   cartOverlay.style.display = "block";
-  mobileCartBar.style.setProperty("display", "none", "important");
+  mobileCartBar.style.display = "none";
 }
 
 function closeCartModal(){
@@ -190,6 +194,8 @@ navMenu.querySelectorAll("a").forEach(link => {
     navMenu.classList.remove("active");
   });
 });
+
+window.addEventListener("resize", updateCart);
 
 whatsappBtn.addEventListener("click", () => {
   if(cart.length === 0){
