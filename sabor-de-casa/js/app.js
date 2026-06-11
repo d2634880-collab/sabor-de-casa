@@ -155,9 +155,17 @@ function renderCart(){
 }
 
 function updateCart(){
-  const totals = renderCart();
-  const totalItems = totals.totalItems;
-  const totalPrice = totals.totalPrice;
+ let totalItems = 0;
+let totalPrice = 0;
+
+cart.forEach(item => {
+  totalItems += item.quantity;
+  totalPrice += item.price * item.quantity;
+});
+
+if(cartModal.style.display === "block"){
+  renderCart();
+}
 
   const cartCount = cartButton.querySelector(".cart-count");
 
